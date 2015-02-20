@@ -9,7 +9,7 @@ var download = function(format) {
     'text': '', 
     // 'maxResults': 100, 
     'maxResults': 100000, 
-    'startTime': 0
+    'startTime': 0fdsaf
   }, function(res) {
     window.res = res;
 
