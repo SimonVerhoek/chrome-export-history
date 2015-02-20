@@ -10,7 +10,7 @@ var download = function(format) {
     // 'maxResults': 100, 
     'maxResults': 100000, 
     'startTime': 0
-  }, function(res){
+  }, function(res) {
     window.res = res;
 
     var text, filename;
@@ -36,7 +36,7 @@ var download = function(format) {
       filename = "history.json";
 
       append("[");
-      for(var i=0; i<res.length; i++) {
+      for(var i = 0; i < res.length; i++) {
         text = JSON.stringify(res[i]);
         if (i !== res.length - 1) text = text + ',';
         append(text);
