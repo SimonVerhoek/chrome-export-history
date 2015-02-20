@@ -1,8 +1,8 @@
-var append = function(text){
+var append = function(text) {
   data.appendChild(document.createTextNode(text));
 }
 
-var download = function(format){
+var download = function(format) {
   document.getElementById('content').innerText = "preparing file...";
 
   chrome.history.search({
@@ -16,7 +16,7 @@ var download = function(format){
     var text, filename;
 
     // put the data in a hidden div so chrome doesn't crash
-    if(format==="csv"){
+    if (format==="csv") {
       filename = "history.csv";
 
       // header row
@@ -24,21 +24,21 @@ var download = function(format){
       append(keys.join(","));
 
       var row;
-      for(var i=0; i<res.length; i++){
+      for (var i = 0; i < res.length; i++) {
         row = "";
-        for(var j=0; j<keys.length; j++){
+        for (var j = 0; j < keys.length; j++) {
           row += JSON.stringify(res[i][keys[j]]);
-          if(j !== keys.length-1) row += ",";
+          if (j !== keys.length - 1) row += ",";
         }
         append("\n" + row);
       }
-    }else{
+    } else {
       filename = "history.json";
 
       append("[");
-      for(var i=0; i<res.length; i++){
+      for(var i=0; i<res.length; i++) {
         text = JSON.stringify(res[i]);
-        if(i !== res.length-1) text = text + ',';
+        if (i !== res.length - 1) text = text + ',';
         append(text);
       }
       append("]");
@@ -56,14 +56,14 @@ var download = function(format){
   });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
   window.data = document.getElementById('data');
 
-  document.getElementById('json').onclick = function(){
+  document.getElementById('json').onclick = function() {
     download('json');
   };
 
-  document.getElementById('csv').onclick = function(){
+  document.getElementById('csv').onclick = function() {
     download('csv');
   };
 });
