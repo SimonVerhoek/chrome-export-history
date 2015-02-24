@@ -16,7 +16,7 @@ var download = function(format) {
     var text, filename;
 
     // put the data in a hidden div so chrome doesn't crash
-    if (format==="csv") {
+    if (format === "csv") {
       filename = "history.csv";
 
       // header row
