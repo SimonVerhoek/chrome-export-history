@@ -13,19 +13,30 @@ var download = function(format) {
     }, function(res) {
         window.res = res;
 
+        // minimum amount of time in milliseconds that
+        // the page has to be visited, in order to be
+        // considered as read
+        var threshold = 5000;
+
         var text, filename;
 
-        // put the data in a hidden div so chrome doesn't crash
-        for(var i = 0; i < res.length; i++) {
-            if (format === "urlsonly") {
-                filename = "urlsonly.json";
-                text = JSON.stringify(res[i].url);
-            } else {
-                filename = "alldata.json";
-                text = JSON.stringify(res[i]);
-            };
-            if (i !== res.length - 1) text = text + ',';
-            append(text);
+        append("[");
+
+        // from the oldest to the most recent page visited
+        for (var i = res.length-1; i > -1; i--) { 
+
+            // if visit time longer than threshold, add to JSON
+            if (i === 0 || res[i-1].lastVisitTime - res[i].lastVisitTime > threshold) {
+                if (format === "urlsonly") {
+                    filename = "urlsonly.json";
+                    text = JSON.stringify(res[i].url);
+                } else {
+                    filename = "alldata.json";
+                    text = JSON.stringify(res[i]);
+                };
+                if (i !== 0) text = text + ',';
+                append(text);
+            }  
         }
         append("]");
 
@@ -52,4 +63,3 @@ document.addEventListener('DOMContentLoaded', function() {
         download('urlsonly');
     };
 });
-
