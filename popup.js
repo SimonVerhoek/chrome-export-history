@@ -16,27 +16,19 @@ var download = function(format) {
     var text, filename;
 
     // put the data in a hidden div so chrome doesn't crash
-    if (format === "urlsonly") {
-      filename = "urlsonly.json";
-
-      append("[");
-      for(var i = 0; i < res.length; i++) {
+    for(var i = 0; i < res.length; i++) {
+      if (format === "urlsonly") {
+        filename = "urlsonly.json";
         text = JSON.stringify(res[i].url);
-        if (i !== res.length - 1) text = text + ',';
-        append(text);
-      }
-      append("]");
-    } else {
-      filename = "alldata.json";
-
-      append("[");
-      for(var i = 0; i < res.length; i++) {
+      } else {
+        filename = "alldata.json";
         text = JSON.stringify(res[i]);
-        if (i !== res.length - 1) text = text + ',';
-        append(text);
       }
-      append("]");
+      if (i !== res.length - 1) text = text + ',';
+      append(text);
     }
+    append("]");
+
 
     window.blob = new Blob([data.innerText], {type: 'application/octet-binary'});
     window.url = URL.createObjectURL(blob);
