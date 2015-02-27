@@ -26,18 +26,18 @@ var download = function(format) {
             };
             if (i !== res.length - 1) text = text + ',';
             append(text);
-    }
-    append("]");
+        }
+        append("]");
 
-    window.blob = new Blob([data.innerText], {type: 'application/octet-binary'});
-    window.url = URL.createObjectURL(blob);
+        window.blob = new Blob([data.innerText], {type: 'application/octet-binary'});
+        window.url = URL.createObjectURL(blob);
 
-    var pom = document.createElement('a');
-    pom.setAttribute('href', url);
-    pom.setAttribute('download', filename);
-    pom.click();
+        var pom = document.createElement('a');
+        pom.setAttribute('href', url);
+        pom.setAttribute('download', filename);
+        pom.click();
 
-    window.close();
+        window.close();
     });
 }
 
