@@ -16,24 +16,18 @@ var download = function(format) {
     var text, filename;
 
     // put the data in a hidden div so chrome doesn't crash
-    if (format === "csv") {
-      filename = "history.csv";
+    if (format === "urlsonly") {
+      filename = "urlsonly.json";
 
-      // header row
-      var keys = Object.keys(res[0]);
-      append(keys.join(","));
-
-      var row;
-      for (var i = 0; i < res.length; i++) {
-        row = "";
-        for (var j = 0; j < keys.length; j++) {
-          row += JSON.stringify(res[i][keys[j]]);
-          if (j !== keys.length - 1) row += ",";
-        }
-        append("\n" + row);
+      append("[");
+      for(var i = 0; i < res.length; i++) {
+        text = JSON.stringify(res[i].url);
+        if (i !== res.length - 1) text = text + ',';
+        append(text);
       }
+      append("]");
     } else {
-      filename = "history.json";
+      filename = "alldata.json";
 
       append("[");
       for(var i = 0; i < res.length; i++) {
@@ -59,12 +53,12 @@ var download = function(format) {
 document.addEventListener('DOMContentLoaded', function() {
   window.data = document.getElementById('data');
 
-  document.getElementById('json').onclick = function() {
-    download('json');
+  document.getElementById('alldata').onclick = function() {
+    download('alldata');
   };
 
-  document.getElementById('csv').onclick = function() {
-    download('csv');
+  document.getElementById('urlsonly').onclick = function() {
+    download('urlsonly');
   };
 });
 
