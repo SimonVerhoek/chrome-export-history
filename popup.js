@@ -29,7 +29,13 @@ var download = function(format) {
             if (i === 0 || res[i-1].lastVisitTime - res[i].lastVisitTime > threshold) {
                 if (format === "urlsonly") {
                     filename = "urlsonly.json";
-                    text = JSON.stringify(res[i].url);
+
+                    // only add to list if url is from NOS article
+                    if (res[i].url.lastIndexOf("http://nos.nl/artikel/") === 0) {
+                        text = JSON.stringify(res[i].url);
+                    } else {
+                        continue;
+                    }
                 } else {
                     filename = "alldata.json";
                     text = JSON.stringify(res[i]);
