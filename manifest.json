@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Export History",
-  "description": "Download your full chrome history in json",
+  "name": "Export NOS Nieuws history",
+  "description": "Downloads a list of all read articles on NOS.nl",
   "version": "1.0",
 
   "permissions": [
